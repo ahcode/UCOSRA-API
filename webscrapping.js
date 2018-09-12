@@ -25,3 +25,23 @@ module.exports.getTitulaciones = function(){
         return list;
     });
 }
+
+module.exports.getAsignaturas = function(t_code){
+    const options = {
+        'uri': config.urls.cra_form,
+        'qs': {
+            'tTit': t_code,
+            'tAsig': '---'
+        },
+        ...common_options
+    };
+    return rp(options).then(function(data){
+        var $ = cheerio.load(data);
+        var list = [];
+        $('.listaG[name=ttp2]').children().each(function(i, elem){
+            if(i != 0)
+                list.push([elem.attribs.value.match(/^\S+/)[0], elem.firstChild.data.replace(/^\s*\S+\s*/, '')]);
+        })
+        return list;
+    });
+}

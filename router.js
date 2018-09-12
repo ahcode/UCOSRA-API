@@ -14,4 +14,8 @@ router.get('/titulaciones', function(req,res){
     ws.getTitulaciones().then(t_list => res.send(t_list));
 });
 
+router.get('/asignaturas', function(req,res){
+    ws.getAsignaturas(req.body.titulacion).then(a_list => res.send(a_list));
+});
+
 module.exports.router = router;
