@@ -1,3 +1,8 @@
 {
-    "port": 5022
+    "port": 5022,
+    "debug": true,
+    "urls":{
+        "cra_form": "https://www.uco.es/sra/index.php?go=sra/r2000430/r2000430.html",
+        "cra_post": "https://www.uco.es/sra/index.php?go=sra/r2000430/action/r2000430_00.php"
+    }
 }
