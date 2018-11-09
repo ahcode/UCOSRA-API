@@ -2,6 +2,7 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
 const config = require('./config.json');
+const error = require('./error.js').error;
 
 const common_options = {
     'encoding': null,
@@ -20,9 +21,11 @@ module.exports.getTitulaciones = function(){
         var list = [];
         $('.listaG[name=tpp1]').children().each(function(i, elem){
             if(i != 0)
-                list.push([elem.attribs.value, elem.firstChild.data.replace(/^\s*\S+\s*/, '')]);
+                list.push({'code':elem.attribs.value, 'name':elem.firstChild.data.replace(/^\s*\S+\s*/, '')});
         })
         return list;
+    }).catch(function(e){
+        return error('SE001');
     });
 }
 
@@ -40,8 +43,10 @@ module.exports.getAsignaturas = function(t_code){
         var list = [];
         $('.listaG[name=ttp2]').children().each(function(i, elem){
             if(i != 0)
-                list.push([elem.attribs.value.match(/^\S+/)[0], elem.firstChild.data.replace(/^\s*\S+\s*/, '')]);
+                list.push({'code':elem.attribs.value.match(/^\S+/)[0], 'name':elem.firstChild.data.replace(/^\s*\S+\s*/, '')});
         })
         return list;
+    }).catch(function(e){
+        return error('SE001');
     });
 }

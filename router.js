@@ -1,13 +1,10 @@
 const router = require('express').Router();
 const pack = require('./package.json');
-const utils = require('./utils.js');
+const error = require('./error.js').error;
 const ws = require('./webscrapping.js');
 
 router.get('/version', function(req,res){
-    if(pack.hasOwnProperty('version'))
-        res.send({'version': pack.version});
-    else
-        res.send(utils.error('SE001'));
+    res.send({'version': pack.version});
 });
 
 router.get('/titulaciones', function(req,res){
@@ -15,7 +12,12 @@ router.get('/titulaciones', function(req,res){
 });
 
 router.get('/asignaturas', function(req,res){
-    ws.getAsignaturas(req.body.titulacion).then(a_list => res.send(a_list));
+    if(!req.body.hasOwnProperty('titulacion')){
+        res.send(error('UE001'));
+    }else{
+        ws.getAsignaturas(req.body.titulacion).then(a_list => res.send(a_list))
+        .catch(error_code => res.send(error(error_code)));
+    }
 });
 
 module.exports.router = router;

@@ -1,3 +1,5 @@
 {
-    "SE001": "version variable not found"
+    "SE001": "Can't connect to UCO server",
+    "SE002": "Webscrapping Error",
+    "UE001": "Variable 'titulacion' must be specified for this request"
 }
