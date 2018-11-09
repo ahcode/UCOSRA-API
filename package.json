@@ -8,6 +8,7 @@
         "request": "2.88.0",
         "request-promise": "4.2.2",
         "cheerio": "1.0.0-rc.2",
-        "iconv-lite": "0.4.24"
+        "iconv-lite": "0.4.24",
+        "dateformat": "3.0.3"
     }
 }
